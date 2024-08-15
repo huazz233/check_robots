@@ -1,10 +1,13 @@
 // ==UserScript==
-// @name         检查 robots.txt
+// @name         Check Robots.txt
 // @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  检查 robots.txt 是否存在，并根据结果打开新标签或显示警告。按钮可以拖动，设置可以自定义。
+// @version      0.1
+// @description  Check if a website has a robots.txt file
+// @author       huazz233@163.com
+// @homepageURL  https://github.com/huazz233/check_robots
+// @supportURL   https://github.com/huazz233/check_robots/issues
 // @match        *://*/*
-// @grant        none
+// @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
 (function() {
