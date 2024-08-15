@@ -13,7 +13,7 @@
 (function() {
     'use strict';
 
-    // 函数：检查 robots.txt 文件是否存在
+    // Function to check if robots.txt file exists
     function checkRobotsTxt() {
         const url = new URL(window.location.href);
         const robotsUrl = `${url.origin}/robots.txt`;
@@ -25,20 +25,20 @@
                 if (xhr.status === 200) {
                     displayPopup(xhr.responseText);
                 } else {
-                    alert(`robots.txt 文件不存在: ${robotsUrl}`);
+                    alert(`robots.txt file not found: ${robotsUrl}`);
                 }
             }
         };
         xhr.send();
     }
 
-    // 创建并添加按钮
+    // Create and add the button
     function addButton() {
         const settings = loadSettings();
 
         const button = document.createElement('button');
         button.id = 'check-robots-btn';
-        button.textContent = settings.buttonText || '查看协议';
+        button.textContent = settings.buttonText || 'Check Robots';
         button.style.position = 'fixed';
         button.style.top = settings.top || '10px';
         button.style.right = settings.right || '10px';
@@ -50,20 +50,19 @@
         button.style.padding = '10px 20px';
         button.style.zIndex = '10000';
         button.style.fontSize = '14px';
-        button.style.pointerEvents = 'auto'; // 允许点击
+        button.style.pointerEvents = 'auto'; // Allow clicking
         button.style.width = settings.buttonWidth || 'auto';
-        button.style.height = settings.buttonHeight || 'auto';
+        button.style.height = settings.buttonHeight || 'auto'; // Ensure this can be applied
 
-        // 添加点击事件
+        // Add click event
         button.addEventListener('click', function() {
-            console.log('“查看协议”按钮被点击');
             checkRobotsTxt();
         });
 
         document.body.appendChild(button);
     }
 
-    // 显示弹出框
+    // Display the popup with robots.txt content
     function displayPopup(content) {
         const existingPopup = document.getElementById('popup');
         if (existingPopup) {
@@ -102,7 +101,7 @@
 
         popup.appendChild(closeButton);
 
-        // 创建按钮设置行
+        // Create button settings row
         const buttonContainer = document.createElement('div');
         buttonContainer.style.display = 'flex';
         buttonContainer.style.justifyContent = 'space-between';
@@ -111,19 +110,19 @@
 
         const viewRobotsButton = document.createElement('a');
         viewRobotsButton.href = `${window.location.origin}/robots.txt`;
-        viewRobotsButton.textContent = '查看 robots.txt 文件';
+        viewRobotsButton.textContent = 'View robots.txt';
         viewRobotsButton.style.color = '#007bff';
         viewRobotsButton.style.textDecoration = 'none';
         viewRobotsButton.style.fontSize = '14px';
 
         const settingsButton = document.createElement('span');
-        settingsButton.textContent = '设置';
+        settingsButton.textContent = 'Settings';
         settingsButton.style.color = '#007bff';
         settingsButton.style.cursor = 'pointer';
         settingsButton.style.fontSize = '14px';
         settingsButton.style.marginRight = '32px';
         settingsButton.addEventListener('click', function() {
-            document.getElementById('popup').remove(); // 隐藏查看协议弹出框
+            document.getElementById('popup').remove(); // Hide the popup
             toggleSettingsPopup();
         });
 
@@ -139,7 +138,7 @@
         document.body.appendChild(popup);
     }
 
-    // 显示/隐藏设置弹出框
+    // Toggle settings popup visibility
     function toggleSettingsPopup() {
         let settingsPopup = document.getElementById('settings-popup');
         if (settingsPopup) {
@@ -163,43 +162,43 @@
         settingsPopup.style.overflow = 'auto';
 
         const title = document.createElement('h3');
-        title.textContent = '设置';
+        title.textContent = 'Settings';
         title.style.textAlign = 'center';
         title.style.marginBottom = '20px';
         settingsPopup.appendChild(title);
 
         const settingsFields = [
-            { label: '按钮名称:', id: 'settings-button-text', type: 'text', value: '查看协议' },
-            { label: '按钮颜色:', id: 'settings-button-color', type: 'color', value: '#6c757d' },
-            { label: '按钮上方距离:', id: 'settings-top', type: 'text', value: '10px' },
-            { label: '按钮右侧距离:', id: 'settings-right', type: 'text', value: '10px' },
-            { label: '按钮宽度:', id: 'settings-button-width', type: 'text', value: 'auto' },
-            { label: '按钮高度:', id: 'settings-button-height', type: 'text', value: 'auto' }
+            { label: 'Button Text:', id: 'settings-button-text', type: 'text', value: 'Check Robots' },
+            { label: 'Button Color:', id: 'settings-button-color', type: 'color', value: '#6c757d' },
+            { label: 'Button Top Margin:', id: 'settings-top', type: 'text', value: '10px' },
+            { label: 'Button Right Margin:', id: 'settings-right', type: 'text', value: '10px' },
+            { label: 'Button Width:', id: 'settings-button-width', type: 'text', value: 'auto' },
+            { label: 'Button Height:', id: 'settings-button-height', type: 'text', value: 'auto' }
         ];
 
         settingsFields.forEach(field => {
             const label = document.createElement('label');
             label.textContent = field.label;
-            label.style.display = 'block'; // 单独一行显示
+            label.style.display = 'block'; // Display each field on a new line
             label.style.marginBottom = '5px';
             settingsPopup.appendChild(label);
             const input = document.createElement('input');
             input.id = field.id;
             input.type = field.type;
             input.value = field.value;
-            input.style.width = '100%'; // 宽度自适应
+            input.style.width = '100%'; // Full width
             settingsPopup.appendChild(input);
         });
 
-        // 按钮容器
+        // Button container
         const buttonContainer = document.createElement('div');
         buttonContainer.style.display = 'flex';
         buttonContainer.style.justifyContent = 'center';
         buttonContainer.style.marginTop = '20px';
 
-        // 确认按钮
+        // Confirm button
         const confirmButton = document.createElement('button');
-        confirmButton.textContent = '确认';
+        confirmButton.textContent = 'Confirm';
         confirmButton.style.backgroundColor = '#007bff';
         confirmButton.style.color = '#fff';
         confirmButton.style.border = 'none';
@@ -207,15 +206,15 @@
         confirmButton.style.cursor = 'pointer';
         confirmButton.style.padding = '10px 20px';
         confirmButton.style.fontSize = '14px';
-        confirmButton.style.marginRight = '10px'; // 添加右边距
+        confirmButton.style.marginRight = '10px'; // Right margin
         confirmButton.addEventListener('click', function() {
             saveSettings();
             settingsPopup.remove();
         });
 
-        // 重置按钮
+        // Reset button
         const resetButton = document.createElement('button');
-        resetButton.textContent = '重置';
+        resetButton.textContent = 'Reset';
         resetButton.style.backgroundColor = '#dc3545';
         resetButton.style.color = '#fff';
         resetButton.style.border = 'none';
@@ -232,17 +231,19 @@
         buttonContainer.appendChild(resetButton);
 
         settingsPopup.appendChild(buttonContainer);
-
         document.body.appendChild(settingsPopup);
+
+        // Load settings into form
+        const settings = loadSettings();
+        document.getElementById('settings-button-text').value = settings.buttonText || 'Check Robots';
+        document.getElementById('settings-button-color').value = settings.buttonColor || '#6c757d';
+        document.getElementById('settings-top').value = settings.top || '10px';
+        document.getElementById('settings-right').value = settings.right || '10px';
+        document.getElementById('settings-button-width').value = settings.buttonWidth || 'auto';
+        document.getElementById('settings-button-height').value = settings.buttonHeight || 'auto';
     }
 
-    // 加载设置
-    function loadSettings() {
-        const settings = JSON.parse(localStorage.getItem('settings')) || {};
-        return settings;
-    }
-
-    // 保存设置
+    // Save settings to localStorage
     function saveSettings() {
         const settings = {
             buttonText: document.getElementById('settings-button-text').value,
@@ -252,33 +253,22 @@
             buttonWidth: document.getElementById('settings-button-width').value,
             buttonHeight: document.getElementById('settings-button-height').value
         };
-        localStorage.setItem('settings', JSON.stringify(settings));
-        applySettings();
+        localStorage.setItem('checkRobotsSettings', JSON.stringify(settings));
+        location.reload(); // Reload the page to apply new settings
     }
 
-    // 重置设置
+    // Load settings from localStorage
+    function loadSettings() {
+        const settings = localStorage.getItem('checkRobotsSettings');
+        return settings ? JSON.parse(settings) : {};
+    }
+
+    // Reset settings to default
     function resetSettings() {
-        localStorage.removeItem('settings');
-        applySettings();
+        localStorage.removeItem('checkRobotsSettings');
+        location.reload(); // Reload the page to apply default settings
     }
 
-    // 应用设置
-    function applySettings() {
-        const settings = loadSettings();
-
-        // 应用按钮样式
-        const button = document.getElementById('check-robots-btn');
-        if (button) {
-            button.textContent = settings.buttonText || '查看协议';
-            button.style.top = settings.top || '10px';
-            button.style.right = settings.right || '10px';
-            button.style.backgroundColor = settings.buttonColor || '#6c757d';
-            button.style.width = settings.buttonWidth || 'auto';
-            button.style.height = settings.buttonHeight || 'auto';
-        }
-    }
-
-    // 初始化按钮和设置
+    // Initialize the script
     addButton();
-    applySettings();
 })();
